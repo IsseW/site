@@ -12,14 +12,13 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    steps:
     - uses: actions-rs/toolchain@v1
       with:
         toolchain: nightly-2023-07-10
         override: true
         components: rustfmt,clippy
 
-    steps:
     - uses: actions/checkout@v3
     - name: Run format
       run: cargo fmt --all -- --check
