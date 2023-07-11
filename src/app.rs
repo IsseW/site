@@ -20,7 +20,7 @@ impl Component for App {
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
             <main>
-                <h1>{"Work in Progress"}</h1>
+                <h1>{"Work in Progress 🦀🦀🦀"}</h1>
             </main>
         }
     }
