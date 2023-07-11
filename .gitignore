@@ -5,3 +5,4 @@ isse.rs.key
 # Added by cargo
 
 /target
+/dist
