@@ -15,7 +15,7 @@ jobs:
           toolchain: nightly
           target: wasm32-unknown-unknown
 
-      - uses: jetly/trunk-action@v0.1.0
+      - uses: jetli/trunk-action@v0.1.0
       - uses: jetli/wasm-bindgen-action@v0.1.0
       
       - uses: actions/checkout@v3
