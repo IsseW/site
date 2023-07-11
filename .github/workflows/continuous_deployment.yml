@@ -1,0 +1,25 @@
+name: CD
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          target: wasm32-unknown-unknown
+
+      - uses: jetly/trunk-action@v0.1.0
+      - uses: jetli/wasm-bindgen-action@v0.1.0
+      
+      - uses: actions/checkout@v3
+
+      - run: trunk build --release
+
+      - uses: actions/upload-artifact@v3
