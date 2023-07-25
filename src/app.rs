@@ -1,4 +1,4 @@
-use strum::{Display, EnumIter, IntoEnumIterator};
+use strum::Display;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
