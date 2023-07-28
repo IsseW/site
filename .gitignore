@@ -4,5 +4,6 @@ isse.rs.key
 
 # Added by cargo
 
+/temp
 /target
 /dist
