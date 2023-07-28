@@ -27,9 +27,10 @@ fn switch(route: Route) -> Html {
 #[function_component]
 pub fn App() -> Html {
     html! {
-        <BrowserRouter>
+        // Using `HashRouter` while hosted on github pages, once self hosted this can be `BrowsingRouter`.
+        <HashRouter>
             <Switch<Route> render={switch} />
-        </BrowserRouter>
+        </HashRouter>
     }
 }
 
