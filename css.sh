@@ -1,1 +1,1 @@
-./tailwind/tailwindcss -c tailwind/tailwind.config.js -o temp/main.css --minify
+./deps/tailwindcss -c deps/tailwind.config.js -o temp/main.css --minify
