@@ -24,6 +24,7 @@ jobs:
 
       - run: ./css.sh
       - run: trunk build --release
+      - run: cp dist/index.html dist/404.html
 
       - uses: actions/upload-pages-artifact@v2
         with:
