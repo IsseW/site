@@ -1,0 +1,9 @@
+[serve]
+port = 8080
+
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = [
+  "-c", "./css.sh",
+]
