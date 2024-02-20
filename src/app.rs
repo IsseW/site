@@ -2,6 +2,8 @@ use strum::Display;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+mod veloren_maps;
+
 #[derive(Clone, Routable, PartialEq, Display)]
 enum Route {
     #[at("/")]
@@ -10,6 +12,11 @@ enum Route {
     Projects,
     #[at("/about")]
     About,
+    #[at("/veloren_maps")]
+    VelorenMaps,
+    #[at("/veloren_maps/:seed")]
+    VelorenMap { seed: u32 },
+
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -20,6 +27,8 @@ fn switch(route: Route) -> Html {
         Route::Home => html! { <Home /> },
         Route::Projects => html! { <Projects /> },
         Route::About => html! { <About /> },
+        Route::VelorenMaps => html! { <veloren_maps::VelorenMaps /> },
+        Route::VelorenMap { seed } => html! { <veloren_maps::VelorenMap seed={seed}/> },
         Route::NotFound => html! { <h1>{ "404" }</h1> },
     })
 }
