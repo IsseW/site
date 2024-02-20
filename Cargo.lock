@@ -1088,7 +1088,6 @@ dependencies = [
  "serde",
  "serde_json",
  "strum",
- "wasm-bindgen-futures",
  "wasm-logger",
  "yew",
  "yew-router",
