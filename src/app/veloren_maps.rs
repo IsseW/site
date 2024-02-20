@@ -85,7 +85,12 @@ pub struct Maps {
 
 impl Maps {
     async fn get() -> anyhow::Result<&'static Self> {
-        const REPO_CONTENT: &str = "https://api.github.com/repos/IsseW/veloren_maps/contents/";
+        const REPO_CONTENT: &str =
+            "https://api.github.com/repos/IsseW/veloren_maps/contents/?ref=new-map-structure";
+        const REPO_DATA: &str =
+            "https://raw.githubusercontent.com/IsseW/veloren_maps/new-map-structure/";
+        const REPO_MEDIA: &str =
+            "https://media.githubusercontent.com/media/IsseW/veloren_maps/new-map-structure/";
         static CACHED: OnceLock<Maps> = OnceLock::new();
         match CACHED.get() {
             Some(maps) => Ok(maps),
@@ -95,35 +100,23 @@ impl Maps {
                 #[derive(Deserialize)]
                 struct GhFile {
                     name: String,
-                    download_url: String,
                 }
                 let files = serde_json::from_str::<Vec<GhFile>>(&res)?;
 
                 let mut maps = BTreeMap::new();
 
-                for mut file in files {
-                    if let Some((seed, ty)) = file
-                        .name
-                        .split_once('.')
-                        .and_then(|(s, f)| Some((s.parse().ok()?, f)))
-                    {
-                        let meta = maps.entry(seed).or_insert(MapMeta::default());
-                        meta.seed = seed;
-                        match ty {
-                            "ron" => {
-                                meta.data_url = file.download_url;
-                            }
-                            "png" => {
-                                file.download_url.insert_str(34, "/media/");
-                                file.download_url.replace_range(8..11, "media");
-                                meta.image_url = file.download_url;
-                            }
-                            _ => {}
-                        }
+                for file in files {
+                    if let Ok(seed) = file.name.parse() {
+                        maps.insert(
+                            seed,
+                            MapMeta {
+                                seed,
+                                data_url: format!("{REPO_DATA}/{seed}/map.ron"),
+                                image_url: format!("{REPO_MEDIA}/{seed}/map.png"),
+                            },
+                        );
                     }
                 }
-
-                maps.retain(|_, d| !d.data_url.is_empty() && !d.image_url.is_empty());
 
                 let _ = CACHED.set(Self { maps });
                 CACHED.get().ok_or(anyhow!("What!?"))
