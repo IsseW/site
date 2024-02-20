@@ -27,7 +27,7 @@ jobs:
       - run: find dist -name '*.wasm' -exec ./deps/wasm-opt -Oz -o {} {} \;
       - run: cp dist/index.html dist/404.html
 
-      - uses: actions/upload-pages-artifact@v2
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-      - uses: actions/deploy-pages@v2
+      - uses: actions/deploy-pages@v4
